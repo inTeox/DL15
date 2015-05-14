@@ -1,0 +1,318 @@
+    protected Long        idChantier;
+    protected Long        idPersonne;
+    protected Long        idAdresse;
+    protected String      nomChantier;
+    protected Integer     nbrJourDevis;
+    protected Integer     nbrJourReal;
+    protected Float       mtInitial;
+    protected Float       mtRealise;
+    protected String      status;
+    protected Date        dateDebPrevu;
+    protected Date        dateDebReel;
+    protected Date        dateFinPrevu;
+    protected Date        dateFinReel;
+    protected Timestamp   dcChantier;
+    protected Timestamp   dfChantier;
+
+        String debprev = getValeurChamp( request, CHAMP_DATEDEBPREVU );
+        String finprev = getValeurChamp( request, CHAMP_DATEFINPREVU );
+    
+        String debreel = getValeurChamp( request, CHAMP_DATEDEBREEL );
+        String finreel = getValeurChamp( request, CHAMP_DATEFINREEL );
+        
+        traiterFinprev( finprev, chantier );
+        traiterDebreel( debreel, chantier );
+        traiterFinreel( finreel, chantier );
+        
+===========================================================================
+<table border="0">
+            <tbody>
+                <tr>
+                    <td><label for="idChantier">N° &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="idChantier" name="idChantier" 
+                           value="<c:out value="${chantier.idChantier}"/>" size="10" />
+                    <span class="erreur">${form.erreurs['idChantier']}</span><BR> </BR>                   
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><label for="nomPersonne">Nom <span class="requis">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="nomPersonne" name="nomPersonne" 
+                           value="<c:out value="${personne.nom}"/>" size="30" maxlength="50" />
+                    <span class="erreur">${form.erreurs['nomPersonne']}</span> </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td> <select name="listeProprietaires" id="listeProprietaires">
+                            <option value="">Choisissez un proprietaire...</option>
+                            <%-- Boucle sur la map des proprietaires --%>
+                            <c:forEach items="${ sessionScope.proprietaires }" var="mapProprietaires">
+                            <option value="${ mapProprietaires.key }">${ mapProprietaires.value.prenom } ${ mapProprietaires.value.nom }</option>
+                            </c:forEach>
+                         </select>  </td>
+                </tr>
+                <BR> </BR>
+            </tbody>
+        </table>       
+        <c:import url="/inc/inc_adresse_form.jsp" />
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td><label for="nbrJourDevis">jours devis <span class="requis">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="nbrJourDevis" name="nbrJourDevis" 
+                           value="<c:out value="${chantier.nbrJourDevis}"/>" size="10" maxlength="10"/>
+                    <span class="erreur">${form.erreurs['nbrJourDevis']}</span>                 
+                    </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><label for="nbrJourReal">jour réalisé &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="nbrJourReal" name="nbrJourReal" 
+                           value="<c:out value="${chantier.nbrJourReal}"/>" size="18" maxlength="15"/>
+                    <span class="erreur">${form.erreurs['nbrJourReal']}</span>                   
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="mtInitial">montant devis &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="mtInitial" name="mtInitial" 
+                           value="<c:out value="${chantier.mtInitial}"/>" size="18" maxlength="15" />
+                    <span class="erreur">${form.erreurs['mtInitial']}</span> </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td>
+                    <label for="mtRealise">montant total &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="mtRealise" name="mtRealise" 
+                           value="<c:out value="${chantier.mtRealise}"/>" size="18" maxlength="15" />
+                    <span class="erreur">${form.erreurs['mtRealise']}</span>                  
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="status">status &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="mtInitial" name="mtInitial" 
+                           value="<c:out value="${chantier.mtInitial}"/>" size="18" maxlength="15" />
+                    <span class="erreur">${form.erreurs['mtInitial']}</span> </td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><label for="dateDebPrevu">date création &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> 
+                    <input type="text" id="dateDebPrevu" name="dateDebPrevu" 
+                           value="<c:out value="${chantier.dateDebPrevu}"/>" size="10" maxlength="10" />
+                    <span class="erreur">${form.erreurs['dateDebPrevu']}</span></td>
+                </tr>
+            </tbody>
+        </table>
+                <BR> </BR>
+                <BR> </BR>      
+        <input type="submit" value="VALIDEZ" name="doIt" />&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="/Employe"/>">EMPLOYE</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="<c:url value="/Proprietaire"/>">PROPRIETAIRE</a>
+        </form>
+    </body>
+    <c:import url="/inc/inc_bas_page.jsp" />
+</html>
+=============================================================================
+private static final String CHAMP_NBRJOURDEVIS          = "nbrJourDevis";
+    private static final String CHAMP_NBRJOURREAL           = "nbrJourReal";
+    private static final String CHAMP_MTINITIAL             = "mtInitial";
+    private static final String CHAMP_MTREALISE             = "mtRealise";
+    private static final String CHAMP_STATUS                = "status";
+    private static final String CHAMP_DATEDEBPREVU          = "dateDebPrevu";
+================================================================================
+traiterAdresse( adresse, chantier );
+        traiterNom( nom, chantier);
+        traiterNbrjd( nbrjd, chantier );
+        traiterNbrjr( nbrjr, chantier );
+        traiterMtinit( mtinit, chantier );
+        traiterMtreal( mtreal, chantier );
+        traiterStatus( status, chantier );
+        traiterDebprev( debprev, chantier );
+
+public static float strToFloat(String s) 
+{ 
+float f = Float.valueOf(s.trim()).floatValue(); 
+return f; 
+}
+    //Déclaration du SimpleDateFormat
+    SimpleDateFormat sdf = new SimpleDateFormat ("dd/MM/yyyy");
+if ( naissance != null ) {
+//Conversion en java.util.Date
+    try {
+            java.util.Date date = null;
+        
+            date = sdf.parse(naissance);
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            employe.setDateNaissance(sqlDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(CreationEmployeForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+} 
+=============================================================================================
+       Map<Long, Personne> personnes;
+       Personne personne = new Personne();
+       personnes =  (HashMap<Long, Personne>) personne.lister("proprietaire");
+       session.setAttribute( SESSION_PERSONNES, personnes );
+       System.out.println("CreationProprietaire -1--> table des personnes :" + personnes.size());
+       
+       System.out.println("CreationProprietaire -->SESSION" + session.getId());
+        
+       System.out.println("CreationProprietaire -->SESSIONtostring" + session.getAttribute(SESSION_PERSONNES));
+        
+       if (session.getAttribute(SESSION_PERSONNES) != null) {
+          personnes = (HashMap<Long, Personne>) session.getAttribute( SESSION_PERSONNES );
+           System.out.println("CreationProprietaire -1--> table des personnes :" + personnes.size());
+        
+    } 
+
+
+                    <th>Nom</th>
+                    <th>Propriétaire</th>
+                    <th>Adresse</th>
+                    <th>Jours prévus</th>
+                    <th>Montant devis</th>
+                    <th>début prévu</th>
+                    <th>Fin prévue</th>
+                    <th>Status</th>
+                    <th>Jours réalisés</th>
+                    <th>Montant total</th>
+                    <th>début réel</th>
+                    <th>Fin réelle</th>
+
+
+protected Long        idChantier;
+    protected Personne    personne;
+    protected Adresse     adresse;
+    protected String      nomChantier;
+    protected Integer     nbrJourDevis;
+    protected Integer     nbrJourReal;
+    protected Float       mtInitial;
+    protected Float       mtRealise;
+    protected String      status;
+    protected Date        dateDebPrevu;
+    protected Date        dateDebReel;
+    protected Date        dateFinPrevu;
+    protected Date        dateFinReel;
+    protected Timestamp   dcChantier;
+    protected Timestamp   dfChantier;
+===========================================================
+protected Long        idContrat;
+    protected Employe     employe;
+    protected String      poste;
+    protected String      qualif;
+    protected Float       remunerationHoraire;
+    protected Date        dateDebContrat;
+    protected Date        dateFinContrat;
+    protected Timestamp   dcContrat;
+    protected Timestamp   dfContrat;
+================================================================================
+private static final String CHAMP_ID                    = "idContrat";
+    private static final String CHAMP_IDP                   = "idPersonne";
+    private static final String CHAMP_NOM                   = "nomPersonne";
+    
+    private static final String CHAMP_LISTE_EMPLOYES        = "listeEmployes";
+    private static final String CHAMP_POSTE                 = "poste";
+    private static final String CHAMP_QUALIF                = "qualif";
+    private static final String CHAMP_REM                   = "remunerationHoraire";
+    private static final String CHAMP_DATEDEB               = "dateDebPrevu";
+    private static final String CHAMP_DATEFIN               = "dateDebReel";
+    
+    private static final String EMPLOYE                     = "employe";
+    private static final String SESSION_EMPLOYES            = "employes";
+    
+
+    traiterNom( nom, contrat);
+        traiterPoste( poste, contrat );
+        traiterQualif( qualif, contrat );
+        traiterRem( rem, contrat );
+        traiterDeb( deb, contrat );
+        traiterFin( fin, contrat );
+        
+<select name="listePersonnes" id="listePersonnes">
+                            <option value="">Choisissez un proprietaire...</option>
+                            <%-- Boucle sur la map des proprietaires --%>
+                            <c:forEach items="${ sessionScope.personnes }" var="mapProprietaires">
+                            <option value="${ mapProprietaires.key }">${ mapProprietaires.value.prenom } ${ mapProprietaires.value.nom }</option>
+                            </c:forEach>
+                         </select> 
+============================================================================
+private Date   dateNaissance;
+    private String securiteSociale;
+    private String experience;
+    private String fonction;
+    private String nationalite;
+    private String titreSejour;
+    private String permisTravail;
+    private String codeAcces;
+    private Timestamp dateDebutE;
+    private Timestamp dateFinE;
+
+
+=========================================================================
+<% request.setAttribute( "test", new TestList(10, false) ); %>
+
+<display:table name="test">
+  <display:column property="id" title="ID" />
+  <display:column property="name" />
+  <display:column property="email" />
+  <display:column property="status" />
+  <display:column property="description" title="Comments"/>
+</display:table>
+
+<display:table name="someList" export="true" id="row" requestURI="MyAction.do">
+  <display:column sortable="true" title="ID"> <c:out value="${row.id}"/> </display:column>
+  <display:column property="email" autolink="true"/>
+  <display:column property="description" title="Comments"/>
+</display:table>
+======================================
+<display:table id="monTableau" name="pageScope.maListeDObjet" class="grid" style="width:100%;">
+         <display:setProperty name="basic.msg.empty_list" value="Auncune donnée."/>
+         <display:column property="macolonne1" title="Titre Colonne1"/>
+         <display:column property="macolonne2" title="Titre Colonne2"/>
+       </display:table>
+
+
+<display:table name="someList" export="true" id="row" requestURI="MyAction.do">
+  <display:column sortable="true" title="ID"> <c:out value="${row.id}"/> </display:column>
+  <display:column property="email" autolink="true"/>
+  <display:column property="description" title="Comments"/>
+</display:table>
+
+        
+
+<display:table name="someList">
+  <display:column property="mail"/>
+  <display:column property="total"/>
+  <display:footer>
+  	<tr>
+  		<td>total:</td>
+  		<td><c:out value="${something}" /></td>
+  	<tr>
+  </display:footer>
+</display:table>
+===========================================================================
+
+ <display:table name="${sessionScope.carnet}" id="row" requestURI="ListerContrat"/> 
+             <display:column sortable="true" title="ID"> 
+                 <c:out value="${row.id}"/> </display:column>
+             <display:column property="remunerationHoraire" />
+**************************************************************************
+
+<% System.out.println ( "VTT :" + request.getAttribute("contrat"));
+                
+          %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

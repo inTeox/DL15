@@ -1,0 +1,301 @@
+body {
+  color:black;
+  background-color:white;
+  background-image:url(images/logo.jpg);
+}
+/* PARTIE STANDARD */
+.lieninterne {
+text-decoration: none; color: inherit;
+}
+/* diaporama de réalisation */
+
+#diaporama img, #diaporamaprestation img {
+	position: absolute;
+}
+
+/* Diaporama de la page des réalisations */
+
+#realisation img {
+	position: absolute;
+}
+/* Suppression de la légende du diaporama */
+    #site_contenu  .ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
+		display:none !important;
+      }
+	#site_page  .ad-gallery .ad-image-wrapper .ad-image .ad-image-description {
+		display:block !important;
+      }
+
+
+
+
+
+
+
+.bloc_img_fils, .bloc_img_pere {
+    float:left;
+    width:150px;
+    height:160px;
+    margin-left:10px;
+}
+
+.bloc_img_pere {
+    background:url("/images/fond_miniature.png") no-repeat;
+}
+
+.bloc_img_fils a, .bloc_img_pere a {
+    text-decoration: none;
+}
+
+.bloc_img_fils img {
+    width:109px;
+    height:87px;
+    border:#fff 4px solid;
+    box-shadow: 0px 0px 5px #888888;
+    margin-top:7px;
+    margin-left:17px;
+}
+
+.bloc_img_pere img {
+    width:109px;
+    height:87px;
+    margin-top:11px;
+    margin-left:17px;
+}
+
+.titreminiature {
+    display:block;
+    font-size:0.9em;
+    text-align: center;
+}
+
+.bloc_img_fils span {
+    margin-top:11px;
+}
+
+.bloc_img_pere span {
+    margin-top:15px;
+}
+
+#caroussel {
+	margin:0;
+	padding:0px;
+}
+
+#caroussel_images
+{
+	position:absolute;
+	top:-9000px;
+	left:-9000px;
+}
+#site_traduction{
+position:absolute;
+z-index:999;
+}
+.droite {
+float: right;
+clear : right;
+margin: 0px 0px 5px 5px;
+}
+.gauche {
+float : left;
+clear : left;
+margin : 0 5px 5px 0px;
+}
+table.beautableau {
+border: 1px solid #000000;
+border-collapse: collapse;
+width: 100%;
+}
+table.beautableau  th {
+border: thin solid #000000;
+padding: 5px;
+font-weight: 900;
+text-align: center;
+}
+table.beautableau td {
+border: thin solid #000000;
+padding: 5px;
+text-align: center;
+}
+table.beautableau caption {
+font-size: 1.6em;
+padding: 10px;
+font-weight: 900;
+
+}
+
+
+table.tableau2 {
+border: 1px solid #ebebeb;
+border-collapse: collapse;
+width: 100%;clear:both; margin-top:20px;margin-bottom:20px;
+box-shadow: 1px 1px 19px #ebebeb; 
+}
+table.tableau2  th {
+border: thin solid #ebebeb;
+font-weight: 400;
+text-align: left;
+min-height: 40px;
+line-height: 20px;
+padding: 10px 20px;
+color: #222222;
+font-size: 13px;
+}
+table.tableau2 td {
+border: thin solid #ebebeb;
+text-align: center;
+padding: 0;
+}
+table.tableau2 tr td a {text-decoration: none;}
+table.tableau2   img{margin:0;
+padding:0;
+border:0;}
+table.tableau2 caption {
+font-size: 1.6em;
+padding: 10px;
+font-weight: 900;
+}
+/***************************************************************/
+/******************** Pour mise en page   **********************/
+/***************************************************************/
+.article {width: 100%; clear:both; margin-top:10px;margin-bottom:10px;}
+.article:after {
+    content:'';
+    display:block;
+    clear: both;
+}
+.colonne_demi {width: 47%; float: left; margin-right: 4%;}
+.colonne_demi  img{max-width: 100%;border-radius: 3px;}
+.bloc_demi {width: 44%; padding:2%; float: left; margin-right: 3%;border-radius: 3px;}
+
+.colonne_tiers {width: 29%; float: left; margin-right: 5%;}
+.colonne_tiers  img{max-width: 100%;border-radius: 3px;}
+.bloc_tiers {width: 26%; padding:2%; float: left; margin-right: 3%;border-radius: 3px;}
+.article :last-child {margin-right: 0 !important;}
+
+
+
+/***************************************************************/
+/******************** Pour menu principal **********************/
+/***************************************************************/
+#site_menu_page ul li a:hover { 
+     transition:1s color;
+}
+#site_menu_page ul li a { 
+     transition:1s color;
+}
+/***************************************************************/
+/******************** Pour menu déroulant **********************/
+/***************************************************************/
+
+/* css menu vertical */
+.menuDeroulant{ width:auto;}
+.menuDeroulant ul{ z-index:10000;position:absolute; } 
+.menuDeroulant li ul{visibility:hidden;  list-style:none; display:block; }
+.menuDeroulant ul li{padding-left:5px;}			
+/* css menu horizontal */		
+.menuDeroulantHorizontal{display:block; margin:0; padding:0; width:auto; }
+.menuDeroulantHorizontal ul{z-index:10000; position:absolute;display:block;width:auto;}  
+.menuDeroulantHorizontal li ul{ visibility:hidden; opacity: 0;}
+.menuDeroulantHorizontal li li ul{position:absolute;}
+.menuDeroulantHorizontal li{display:block;float:left;list-style:none;width:auto !important ;height:auto;}  
+.menuDeroulantHorizontal li li{display:block;float:none;}
+* html .menuDeroulantHorizontal li li{display:inline;}
+.menuDeroulantHorizontal a{display:block;width:auto;text-decoration:none;}  
+
+/***************************************************************/
+/****************** pour visualiseur d'images ******************/
+/***************************************************************/
+
+.image_none{display:none;}
+/***************************************************************/
+/****************** pour boutique             ******************/
+/***************************************************************/
+
+
+.suppression
+{
+background-image:url("/images/suppr.png");
+background-repeat:no-repeat;
+border: none;
+text-indent: -5000px;
+width: 12px;
+height: 12px;
+}
+
+
+#confirm_ajout_produit {
+position: absolute;
+top:70px;
+left: 250px;
+text-align: center;
+padding : 5px;
+background-color:white;
+border-style:ridge;
+border-width:5px;
+}
+
+#confirm_ajout_produit div#boutons_confirm{
+margin-top:20px;
+margin-left: auto;
+margin-right:auto;
+}
+
+#confirm_ajout_produit input#retour{
+margin-right: 10px;
+}
+
+#confirm_ajout_produit input#passer_commande{
+margin-left: 10px;
+}
+
+/***************************************************************/
+/******************    Livre d'or             ******************/
+/***************************************************************/
+div.hreview  {min-height: 70px;padding-top: 10px;}
+.hreview > .livredor_titre    strong  {font-size:12px;font-family:Georgia,sans-serif; font-style:italic;   }
+.hreview > .dtreviewed  {margin-left:23px; font-style:italic;   }
+.hreview  > .description   {display:block;margin-left:120px; font-style:italic; margin-top:5px;  }
+.hreview em   {display:block;margin-left:120px; color:#666666; font-size:11px;   }
+.hreview  >   .dtreviewed   {float:left;clear:left;   }
+
+
+
+#site_page   #avis    #slideshowavis  div {position:relative !important;   }
+/***************************************************************/
+/******************    Formulaire             ******************/
+/***************************************************************/
+/*Pour la barre de scroll sur IE*/
+textarea { overflow: auto; }
+
+#Form   {counter-reset:titre;   }
+#Form  > fieldset > legend {counter-increment:titre; font-weight:bold;  }
+#Form  > fieldset > legend:before {content : counter(titre) " - ";   }
+
+.validerformulaire  {
+min-width:200px; height:30px; font-size:16px; font-weight: 700;color: #FFFFFF;cursor:pointer; border-width:1px;
+margin-left:160px;
+border-radius: 2px;
+background-color: #3682c7;
+}
+input.validerformulaire:hover {
+background-color: #a3b5bf;}
+#Form   input[type=text], #Form input[type=email], #Form input[type=tel] , #Form textarea, #Form select {
+background-color:#eeeeee;
+}
+#Form   input[type=text]:focus, #Form input[type=email]:focus, #Form input[type=tel]:focus , #Form textarea:focus, #Form select:focus {
+background-color:white;
+}
+#Form input[type=text], #Form input[type=email], #Form input[type=tel] {
+height:25px; border-style:solid; border-width:1px; border-color:#d3d3d3; padding:0 0 0 10px;  }
+#Form textarea, #Form select   {
+border-style:solid; border-width:1px; border-color:#d3d3d3; padding:0 0 0 10px;    }
+#Form select   {height:25px;    }
+#Form .libelleformulaire    {text-align:right; min-width:145px;padding-right:5px;  }
+#Form .libelleformulaire  > strong   {text-align:right;   }
+#Form strong    { font-weight:normal !important;  }
+#Form legend    {font-size:1.2em;   }
+
+#Form fieldset:not(:last-of-type){border-width:1px 0 0 0; margin:10px 0;   }
+#Form fieldset:last-of-type    {border-width:1px 0 1px 0;  margin:10px 0;   }
