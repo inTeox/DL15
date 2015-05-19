@@ -26,7 +26,7 @@ import javax.servlet.http.HttpSession;
 
 
 
-public final class CreationTravailForm {
+public final class aCreationTravailForm {
     
     private static final String CHAMP_ID                    = "idChantier";
     private static final String CHAMP_NOM                   = "nomChantier";
@@ -73,7 +73,7 @@ public final class CreationTravailForm {
         Chantier chantier;
         
         String idAncienChantier = getValeurChamp( request, CHAMP_LISTE_CHANTIERS );
-//        System.out.println("CreationTravailForm --> id Chantier : " + idAncienChantier);
+//        System.out.println("aCreationTravailForm --> id Chantier : " + idAncienChantier);
         Long id = null;
         try {
                 id = Long.parseLong( idAncienChantier );
@@ -82,10 +82,10 @@ public final class CreationTravailForm {
                 id = 0L;
             }
             /* Récupération de l'objet chantier correspondant dans la session */
-//        System.out.println("CreationTravailForm --> PASSAGE1 " );
+//        System.out.println("aCreationTravailForm --> PASSAGE1 " );
         HttpSession session = request.getSession();
         chantier = ( (Map<Long, Chantier>) session.getAttribute( SESSION_CHANTIERS ) ).get( id );
-//        System.out.println("CreationTravailForm --> PASSAGE2 " + chantier );
+//        System.out.println("aCreationTravailForm --> PASSAGE2 " + chantier );
     
          /* seletion de l'employe ou de la liste des employés             */
         
@@ -123,7 +123,7 @@ public final class CreationTravailForm {
         Timestamp dt = new java.sql.Timestamp(calendar.getTime().getTime());
         
         String dfrom = getValeurChamp( request, CHAMP_FROM );
-//        System.out.println("CreationTravailForm passer 0 dfrom-->  " + dfrom);
+//        System.out.println("aCreationTravailForm passer 0 dfrom-->  " + dfrom);
         if (dfrom == null) {
             dfrom = "01-01-2015";
         }
@@ -143,18 +143,14 @@ public final class CreationTravailForm {
 if  (!(idAncienEmploye == null)) {        
    for ( Long key : mesEmployes.keySet()) {
         travail.setEmploye(mesEmployes.get(key));
-//        travail.setDcTravail(dt);
-//        travail.setDfTravail(dt);
         String dfrom2 = dfrom; 
-        for ( int i = 0; i <= 4; i++) {                
+//        for ( int i = 0; i <= 4; i++) {                
             try {
                 travail.setChantier(chantier);
                 travail.setEmploye(mesEmployes.get(key));
                 travail.setDcTravail(dt);
                 travail.setDfTravail(dt);
-                travail.setDcTravail(dt);
-                travail.setDfTravail(dt);
-        
+    //  0            
                 Date sqlDfrom = traiterDfrom( dfrom2 );
                 travail.setdatePlanning(sqlDfrom);
                 semaine.add(j, travail);  
@@ -165,15 +161,62 @@ if  (!(idAncienEmploye == null)) {
                 c.add (Calendar.DATE, 1);
                 dfrom2 = sdf.format(c.getTime());
                 
-                System.out.println("boucle2 SEMAINE : " + semaine.get(j) );
+                System.out.println("boucle0 SEMAINE : " + semaine.get(j) );
                 j++;
-                 
+    //  1            
+                sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.add(j, travail);  
+                
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+                
+                System.out.println("boucle1 SEMAINE : " + semaine.get(j) );
+                j++; 
+    //  2            
+                sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.add(j, travail);  
+                
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+                
+                System.out.println("boucle2 SEMAINE : " + semaine.get(j) );
+                j++;     
+    //  3            
+                sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.add(j, travail);  
+                
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+                
+                System.out.println("boucle3 SEMAINE : " + semaine.get(j) );
+                j++;     
+    //  4            
+                sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.add(j, travail);  
+                
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+                
+                System.out.println("boucle4 SEMAINE : " + semaine.get(j) );
+                j++;     
+                    
             } catch (ParseException ex) {
-                Logger.getLogger(CreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(aCreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
             }
             
         
-        }
+//        }
+            
+        
+//        }
                 
  }    
         System.out.println("CreationTravailForm --> longueur semaine :" + semaine.size());
@@ -203,7 +246,7 @@ private Date traiterDfrom( String dfrom3 ) {
     //        travail.setdatePlanning(sqlDfrom);
             return sqlDfrom;
         } catch (ParseException ex) {
-            Logger.getLogger(CreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(aCreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         } 
         return null;

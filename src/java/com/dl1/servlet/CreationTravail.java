@@ -5,7 +5,7 @@ import com.dl1.beans.Contrat;
 import com.dl1.beans.Employe;
 import com.dl1.beans.Travail;
 import com.dl1.form.CreationContratForm;
-import com.dl1.form.CreationTravailForm;
+import com.dl1.form.aCreationTravailForm;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -75,7 +75,7 @@ public class CreationTravail extends HttpServlet {
        }
         
     /* Préparation de l'objet formulaire */
-        CreationTravailForm form = new CreationTravailForm();
+        aCreationTravailForm form = new aCreationTravailForm();
 
     /* Traitement de la requête et récupération du bean en résultant */
         ArrayList<Travail> semaine = (ArrayList<Travail>) form.creerTravail(request);

@@ -291,6 +291,30 @@ private Date   dateNaissance;
 <% System.out.println ( "VTT :" + request.getAttribute("contrat"));
                 
           %>
+============================================================================
+<td><input type="checkbox" name="Luam" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Lupm" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Maam" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Mapm" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Meam" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Mepm" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Jeam" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Jepm" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Veam" value="ON" checked="checked" /></td>
+                    <td><input type="checkbox" name="Vepm" value="ON" checked="checked" /></td>
+   
+    private static final String CHAMP_LUAM                  = "Luam";
+    private static final String CHAMP_LUPM                  = "Lupm";
+    private static final String CHAMP_MAAM                  = "Maam";
+    private static final String CHAMP_MAPM                  = "Mapm";
+    private static final String CHAMP_MEAM                  = "Meam";
+    private static final String CHAMP_MEPM                  = "Mepm";
+    private static final String CHAMP_JEAM                  = "Jeam";
+    private static final String CHAMP_JEPM                  = "Jepm";
+    private static final String CHAMP_VEAM                  = "Veam";
+    private static final String CHAMP_VEPM                  = "Vepm";
+    
+
 
 
 
