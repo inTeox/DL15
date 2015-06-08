@@ -313,8 +313,115 @@ private Date   dateNaissance;
     private static final String CHAMP_JEPM                  = "Jepm";
     private static final String CHAMP_VEAM                  = "Veam";
     private static final String CHAMP_VEPM                  = "Vepm";
-    
+==============================================================================
+for ( Long key : mesEmployes.keySet()) {
+        travail.setEmploye(mesEmployes.get(key));
+        String dfrom2 = dfrom; 
+        for ( int i = 0; i <= 4; i++) {                
+            try {
+                Date sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.add(j, travail);  
+                
+                SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
+                Calendar c = Calendar.getInstance();
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+                
+                System.out.println("boucle2 SEMAINE : " + semaine.get(j) );
+                j++;
+                 
+            } catch (ParseException ex) {
+                Logger.getLogger(CreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
+            }    
+        }            
+ }    
+^==============================================================================
+===================================================================
+CreationTravailForm --> Contenu semaine :
+{2015-05-12=Travail     sqlDfrom
+datePlanning=2015-05-15, travail.setdatePlanning(sqlDfrom)
+=============================
+2015-05-14=Travail
+datePlanning=2015-05-15, 
+================================
+2015-05-13=Travail
+datePlanning=2015-05-15, 
+===============================
+2015-05-11=Travail
+datePlanning=2015-05-15, 
+==================================
+2015-05-15=Travail
+datePlanning=2015-05-15, 
 
+
+Date sqlDfrom = traiterDfrom( dfrom2 );
+                travail.setdatePlanning(sqlDfrom);
+                semaine.put (sqlDfrom , travail) ;  
+                
+                SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
+                Calendar c = Calendar.getInstance();
+                c.setTime(sdf.parse(dfrom2));
+                c.add (Calendar.DATE, 1);
+                dfrom2 = sdf.format(c.getTime());
+============================================================
+for ( Long key : mesEmployes.keySet()) {
+        travail.setEmploye(mesEmployes.get(key));
+}                    
+
+
+/* 
+//////////////////////////////////AVOIR
+public class SuppressionCommande extends HttpServlet {
+
+    public static final String PARAM_DATE_COMMANDE = "dateCommande";
+    public static final String SESSION_COMMANDES   = "commandes";
+
+    public static final String VUE                 = "/listeCommandes";
+
+    public void doGet( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
+        /* Récupération du paramètre */
+/*
+        String dateCommande = getValeurParametre( request, PARAM_DATE_COMMANDE );
+
+        /* Récupération de la Map des commandes enregistrées en session */
+/*
+        HttpSession session = request.getSession();
+        Map<String, Commande> commandes = (HashMap<String, Commande>) session.getAttribute( SESSION_COMMANDES );
+
+        /* Si la date de la commande et la Map des commandes ne sont pas vides */
+/*
+       if ( dateCommande != null && commandes != null ) {
+            /* Alors suppression de la commande de la Map */
+/*
+            commandes.remove( dateCommande );
+            /* Et remplacement de l'ancienne Map en session par la nouvelle */
+/*
+            session.setAttribute( SESSION_COMMANDES, commandes );
+        }
+
+        /* Redirection vers la fiche récapitulative */
+/*
+        response.sendRedirect( request.getContextPath() + VUE );
+    }
+
+
+    /*
+     * Méthode utilitaire qui retourne null si un paramètre est vide, et son
+     * contenu sinon.
+     */
+/*
+    private static String getValeurParametre( HttpServletRequest request, String nomChamp ) {
+        String valeur = request.getParameter( nomChamp );
+        if ( valeur == null || valeur.trim().length() == 0 ) {
+            return null;
+        } else {
+            return valeur;
+        }
+    }
+}
+*/
 
 
 

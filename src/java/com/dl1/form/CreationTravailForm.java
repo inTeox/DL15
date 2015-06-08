@@ -67,8 +67,11 @@ public final class CreationTravailForm {
     public String getResultat() {
         return resultat;
     }
-    
-    public ArrayList<Travail> creerTravail( HttpServletRequest request ) {
+    public void setResultat(String resultat) {
+        this.resultat = resultat;
+    }
+       
+    public Map<Date, Travail> creerTravail( HttpServletRequest request ) {
         /* seletion du chantier                                           */
         Chantier chantier;
         
@@ -114,7 +117,7 @@ public final class CreationTravailForm {
             
             } catch ( NumberFormatException e ) {
                 setErreur( CHAMP_LISTE_EMPLOYES, "employe inconnu, merci d'utiliser le formulaire prévu à cet effet." );
-                id = 0L;
+                ide = 0L;
             }           
         }
         System.out.println("CreationTravailForm  SIZE employes-->" + mesEmployes.size());
@@ -130,7 +133,7 @@ public final class CreationTravailForm {
         
 //        String dto   = getValeurChamp( request, CHAMP_TO );  
         
-        ArrayList<Travail> semaine = new ArrayList<Travail>();
+        HashMap<Date, Travail> semaine = new HashMap<Date, Travail>();
            
         Travail travail = new Travail(); 
  
@@ -139,66 +142,98 @@ public final class CreationTravailForm {
         
         travail.setDcTravail(dt);
         travail.setDfTravail(dt);
-        int j = 0;
-if  (!(idAncienEmploye == null)) {        
-   for ( Long key : mesEmployes.keySet()) {
-        travail.setEmploye(mesEmployes.get(key));
-//        travail.setDcTravail(dt);
-//        travail.setDfTravail(dt);
-        String dfrom2 = dfrom; 
+        for ( Long key : mesEmployes.keySet()) {
+              travail.setEmploye(mesEmployes.get(key));
+        
         for ( int i = 0; i <= 4; i++) {                
             try {
-                travail.setChantier(chantier);
-                travail.setEmploye(mesEmployes.get(key));
-                travail.setDcTravail(dt);
-                travail.setDfTravail(dt);
-                travail.setDcTravail(dt);
-                travail.setDfTravail(dt);
-        
-                Date sqlDfrom = traiterDfrom( dfrom2 );
+                Date sqlDfrom = traiterDfrom( dfrom );
                 travail.setdatePlanning(sqlDfrom);
-                semaine.add(j, travail);  
+                semaine.put (sqlDfrom , travail) ;  
+        //        System.out.println("la date2:" + travail.getdatePlanning());
                 
                 SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
                 Calendar c = Calendar.getInstance();
-                c.setTime(sdf.parse(dfrom2));
+                c.setTime(sdf.parse(dfrom));
                 c.add (Calendar.DATE, 1);
-                dfrom2 = sdf.format(c.getTime());
+                dfrom = sdf.format(c.getTime());
                 
-                System.out.println("boucle2 SEMAINE : " + semaine.get(j) );
-                j++;
+        //        System.out.println("boucle2 SEMAINE : " + semaine.get(sqlDfrom) );
                  
             } catch (ParseException ex) {
                 Logger.getLogger(CreationTravailForm.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        
+            }    
+        }  
         }
-                
- }    
-        System.out.println("CreationTravailForm --> longueur semaine :" + semaine.size());
+  
+  //      System.out.println("******************************************" + semaine.size());
         
-        Iterator it = semaine.iterator();
-        while(it.hasNext()) {
-            System.out.println("=================================================");
-            System.out.println("semaine :" + it.next().toString());
-        } 
-}        
+  //      System.out.println("CreationTravailForm --> longueur semaine :" + semaine.size());
+  //      System.out.println("CreationTravailForm --> Contenu semaine :" + semaine.toString());
         
         
         return semaine;
     
     }    
+    public Map<Long, Travail> creerPlanning( HttpServletRequest request ) {    
+         /* seletion de l'employe ou de la liste des employés             */
+        HttpSession session = request.getSession();
+        
+        Employe employe = new Employe();
     
+        HashMap<Long, Employe> mesEmployes = new HashMap<Long, Employe>();
+              
+        String idAncienEmploye = getValeurChamp( request, CHAMP_LISTE_EMPLOYES );
+        System.out.println("CreationTravailForm --> id Employe : " + idAncienEmploye);
+        
+        if  (!(idAncienEmploye == null) && (idAncienEmploye.equals("ALL"))) {
+            System.out.println("CreationTravailForm --> ALL");
+            
+            mesEmployes =  (HashMap<Long, Employe>) employe.listerB(TOUS_LES_EMPLOYES);
+            System.out.println("CreationTravailForm --> LISTE employés :" + mesEmployes);
+            
+        } else {
+            Long ide = null;
+            System.out.println("CreationTravailForm --> pasALL");
+            try {
+                ide = Long.parseLong( idAncienEmploye );
+                employe = ( (Map<Long, Employe>) session.getAttribute( SESSION_EMPLOYES ) ).get( ide );
+                mesEmployes.put(ide, employe);
+            
+            } catch ( NumberFormatException e ) {
+                setErreur( CHAMP_LISTE_EMPLOYES, "employe inconnu, merci d'utiliser le formulaire prévu à cet effet." );
+                ide = 0L;
+            }           
+        }
+        System.out.println("CreationTravailForm  SIZE employes-->" + mesEmployes.size());
+//        System.out.println("CreationTravaillForm --> sorti de la partie identifiant employe");
+        
+        HashMap<Long, Travail> semaine = new HashMap<Long, Travail>();
+           
+        Travail travail = new Travail(); 
+ 
+        for ( Long key : mesEmployes.keySet()) {
+              travail.setEmploye(mesEmployes.get(key));
+              semaine.put (travail.getEmploye().getIdPersonne() , travail) ;
+        
+        }
+         System.out.println("*******EMPLOYES***************************" + semaine.size());
+        
+         System.out.println("CreationTravailForm --> Contenu planning :" + semaine.toString());
+        
+        
+        return semaine;
+    
+    }    
 private Date traiterDfrom( String dfrom3 ) {
         //Déclaration du SimpleDateFormat
         SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
         if ( dfrom3 != null ) {
         //Conversion en java.util.Date
         try {
-            java.util.Date date = null;
+    //        java.util.Date date = null;
         
-            date = sdf.parse(dfrom3);
+            java.util.Date date = sdf.parse(dfrom3);
             java.sql.Date sqlDfrom = new java.sql.Date(date.getTime());
     //        travail.setdatePlanning(sqlDfrom);
             return sqlDfrom;

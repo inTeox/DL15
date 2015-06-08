@@ -1,13 +1,10 @@
 package com.dl1.servlet;
 
 import com.dl1.beans.Chantier;
-import com.dl1.beans.Contrat;
 import com.dl1.beans.Employe;
 import com.dl1.beans.Travail;
-import com.dl1.form.CreationContratForm;
-import com.dl1.form.aCreationTravailForm;
+import com.dl1.form.CreationTravailForm;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +21,8 @@ public class CreationTravail extends HttpServlet {
     public static final String ATT_SEMAINE            = "semaine";
     public static final String ATT_CHANTIER           = "chantier";
     public static final String ATT_EMPLOYE            = "employe";
+    public static final String ATT_MESEMPLOYES        = "mesEmployes";
+    
     
     public static final String ATT_FORM               = "form";
     public static final String ATT_FORM1              = "form1";
@@ -75,11 +74,12 @@ public class CreationTravail extends HttpServlet {
        }
         
     /* Préparation de l'objet formulaire */
-        aCreationTravailForm form = new aCreationTravailForm();
+        CreationTravailForm form = new CreationTravailForm();
 
     /* Traitement de la requête et récupération du bean en résultant */
-        ArrayList<Travail> semaine = (ArrayList<Travail>) form.creerTravail(request);
-        System.out.println("CreationTravail : CREATION SEMAINE ---- :" + semaine);
+        Map<Date, Travail> semaine;
+        semaine = (HashMap<Date,  Travail>) form.creerTravail(request);
+        System.out.println("CreationTravail : CREATION SEMAINE ---- :" + semaine.toString());
             
     /* Ajout du bean et de l'objet métier à l'objet requête */
         request.setAttribute( ATT_CHANTIER, chantier );
@@ -88,31 +88,25 @@ public class CreationTravail extends HttpServlet {
         request.setAttribute( ATT_SEMAINE, semaine );
         
         request.setAttribute( ATT_FORM, form );
+        
         Travail travail = new Travail();
         String message = form.getResultat() ;
         
         if (request.getParameter("doIt") != null) {
             System.out.println("CreationTravail : creer un travail");
-            for (Travail s : semaine) {
-                  travail.insertTravail(s);
-                }
+//            form.setResultat(employe.insertEmploye(employe, personne));
+              for ( Date key : semaine.keySet()) {
+                    travail.setdatePlanning(key);
+                    travail.insertTravail(semaine.get(key), key);
+}                   
+            
+
 //            System.out.println("CreationTravail ---> ID travail :" + travail.getIdTravail());
         }
     /* Si aucune erreur */
         
         if  ( form.getErreurs().isEmpty() )       {
             
-            /* récupération de la map des Contrats dans la session */
-            Map<Long, Travail> travails = (HashMap<Long, Travail>) session.getAttribute( SESSION_TRAVAILS );
-            /* Si aucune map n'existe, alors initialisation d'une nouvelle map */
-            if ( travails == null ) {
-                travails = new HashMap<Long, Travail>();
-            }
-            /* Puis ajout du contrat courant dans la map */
-            travails.put( travail.getIdTravail(), travail );
-            /* Et enfin (ré)enregistrement de la map en session */
-            session.setAttribute( SESSION_TRAVAILS, travails );
-            System.out.println("CreationTravail -2--> table des travails :" + travails.size());
             /* Affichage de la fiche récapitulative */
             this.getServletContext().getRequestDispatcher( VUE_FORM ).forward( request, response );
         } else {

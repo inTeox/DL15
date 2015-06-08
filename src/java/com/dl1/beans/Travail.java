@@ -140,10 +140,12 @@ public Long getIdTravail() {
 //</editor-fold> 
 
 //<editor-fold defaultstate="collapsed" desc="insertTravail">    
-public void insertTravail(Travail travail) {
+public void insertTravail(Travail travail, Date d) {
 
         new Timestamp( travail.getDcTravail().getTime());
         new Timestamp( travail.getDfTravail().getTime() );
+
+        travail.setdatePlanning(d);
         
         System.out.println("Travail : entree dans insertTravail");
         String sql_insert = null;
