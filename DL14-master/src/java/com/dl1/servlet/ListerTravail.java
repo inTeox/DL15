@@ -5,11 +5,14 @@
  */
 package com.dl1.servlet;
 
-import com.dl1.beans.Contrat;
 import com.dl1.beans.Travail;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +34,7 @@ public class ListerTravail extends HttpServlet {
     public static final String SESSION_TRAVAIL      = "travail";
     private static final String CHAMP_FROM                  = "from";
     public static final String VUE          = "/WEB-INF/listerTravail.jsp";
-
+    private static final String CHAMP_LISTE_CHANTIERS       = "listeChantiers";
     
     
         protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -39,19 +42,30 @@ public class ListerTravail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         
-        //String idAncienChantier = getValeurChamp( request, CHAMP_LISTE_CHANTIERS )
-        //String dfrom = getValeurChamp( request, CHAMP_FROM );
+        String idAncienChantier = request.getParameter( CHAMP_LISTE_CHANTIERS );
+        String dfrom = request.getParameter( CHAMP_FROM );
         Travail ligneTravail = new Travail();
         Map<Long,Travail> travail;
         
+        SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
+        java.util.Date date;
+        try {
+            date = sdf.parse(dfrom);
+            java.sql.Date sqlDfrom = new java.sql.Date(date.getTime());
+            travail =  (HashMap<Long, Travail>) ligneTravail.listerParDate(sqlDfrom);
+            System.out.println("ListerTravail : " + travail.toString());
+            session.setAttribute( SESSION_TRAVAIL, travail );
+            System.out.println ( "VTT1 :" + request.getAttribute("travail"));
         
-        travail =  (HashMap<Long, Travail>) ligneTravail.listerParDate();
+        } catch (ParseException ex) {
+            Logger.getLogger(ListerTravail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+   
         
         
-        System.out.println("ListerContrat : " + contrat.toString());
         
-        session.setAttribute( SESSION_CONTRAT, contrat );
-        System.out.println ( "VTT1 :" + request.getAttribute("contrat"));
+        
                 
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }

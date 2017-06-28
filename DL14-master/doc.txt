@@ -1,3 +1,8 @@
+http://localhost:33064/DL14-master/Page1
+
+==================================================
+==================================================
+
     protected Long        idChantier;
     protected Long        idPersonne;
     protected Long        idAdresse;

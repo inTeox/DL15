@@ -5,7 +5,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <img src="/DL14/images/logo.jpg">
+        <img src="/DL10/images/logo.jpg">
         <title>Saisie hebdomadaire des temps</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss.css"/>" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -60,15 +60,18 @@
                     <th>N°</th>
                     <th>Nom prénom</th>
                     <th>tel.mobile</th>
-                    <th COLSPAN=2 ROWSPAN=1 >date planning</th>
-                    <th class="action">Action</th>                    
+                    <th COLSPAN=2 ROWSPAN=1 >chantier</th>
+                    <th>date planning</th>
+                                         
                 </tr>
                  <tr>
                     <th> </th>
                     <th> </th>
                     <th> </th>
                     <th>am</th>
-                    <th>pm</th>                    
+                    <th>pm</th> 
+                    <th> </th>
+                     
                 </tr>
                 <%-- Parcours de la Map des travail en session, et utilisation de l'objet varStatus. --%>
                 <c:forEach items="${ sessionScope.travail }" var="mapTravaux" varStatus="boucle">
@@ -77,20 +80,10 @@
                     <%-- Affichage des propriétés du bean Perrsonne, qui est stocké en tant que valeur de l'entrée courante de la map --%>
                     <td><c:out value="${ mapTravaux.value.idContrat }"/></td>
                     <td><c:out value="${ mapTravaux.value.employe.nom } ${ mapTravaux.value.employe.prenom }"/></td>
-                    <td><c:out value="${ mapTravaux.value.chantier.nomchantier }"/></td>
-                    <td><c:out value="${ mapTravaux.value.dateplanning }"/></td>
-                    <td><c:out value="${ mapTravaux.value.presenceAmPlanning }"/></td>
-                    <td><c:out value="${ mapTravaux.value.presencePmPlanning }"/></td>
-                   <%-- Lien vers la servlet de suppression, avec passage de l'identifiant du contrat - c'est-à-dire la clé de la Map - en paramètre grâce à la balise <c:param/>. --%>
-                    <td class="action">
-                        <a href="<c:url value="/SuppressionContrat"><c:param name="idContrat" value="${ mapContrats.key }" /></c:url>">
-                            <img src="<c:url value="/images/suppr.png"/>" alt="Supprimer" />
-                        </a>
-                        &nbsp;&nbsp;&nbsp;
-                        <a href="<c:url value="/ModifContrat"><c:param name="idContratM" value="${ mapContrats.key }" /></c:url>">
-                            <img src="<c:url value="/images/crayon2.jpg"/>" alt="Modifier" />
-                        </a>
-                    </td>
+                    <td><c:out value="${ mapTravaux.value.chantieram }"/></td>
+                    <td><c:out value="${ mapTravaux.value.chantierpm }"/></td>
+                    <td><c:out value="${ mapTravaux.value.chantier.datePlanning }"/></td>
+                     
                 </tr>
                 </c:forEach>
             </table>
