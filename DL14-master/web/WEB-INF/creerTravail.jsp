@@ -4,7 +4,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <img src="/DL14/images/logo.jpg">
+        <img src="/DL14-master/images/logo.jpg">
         <title>Saisie hebdomadaire des temps</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss.css"/>" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

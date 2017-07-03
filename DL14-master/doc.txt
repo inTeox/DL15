@@ -1,6 +1,29 @@
 http://localhost:33064/DL14-master/Page1
-
 ==================================================
+faaire la recherche pour lister travail dans le bean travail
+
+ if (request.getParameter("doIt") != null) {
+                out.println("Nom : " + request.getParameter("Nom"));
+                out.println("<br>");
+                out.println("Prenom : " + request.getParameter("Prenom"));
+            }
+integrer doit dans la servlet pour gerer le control de la date
+==================================================
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
+        
+        Carnet ligneCarnet = new Carnet();
+        Map<Long, Carnet> carnet;
+        
+        carnet =  (HashMap<Long, Carnet>) ligneCarnet.listerCarnet();
+        
+        System.out.println("table personnes :" + carnet.toString()) ;
+        session.setAttribute( SESSION_CARNET, carnet );
+        System.out.println("ListerCarnet -2--> table des personnes :" + carnet.size());
+
+
 ==================================================
 
     protected Long        idChantier;

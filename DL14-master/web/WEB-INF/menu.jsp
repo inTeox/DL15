@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <img src="/DL14/images/logo.jpg">
+        <img src="/DL14-master/images/logo.jpg">
         <title>Gestion de chantier</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss.css"/>" />
     </head>

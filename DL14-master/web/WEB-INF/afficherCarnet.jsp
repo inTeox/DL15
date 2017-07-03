@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <img src="/DL14/images/logo.jpg">
+        <img src="/DL14-master/images/logo.jpg">
         <title>Liste du carnet</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss.css"/>" />
     </head>

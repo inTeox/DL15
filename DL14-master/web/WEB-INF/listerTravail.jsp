@@ -5,7 +5,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8" />
-        <img src="/DL10/images/logo.jpg">
+        <img src="/DL14-master/images/logo.jpg">
         <title>Saisie hebdomadaire des temps</title>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss.css"/>" />
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -44,7 +44,10 @@
     <body>
     <H1>Planning</H1>
     
-    
+        <label for="from">Semaine du :</label>
+        <input type="text" id="from" name="from">
+        <span class="erreur">${form.erreurs['from']}</span>
+        <input type="submit" value="Ok" name="doIt" /><br>
         <c:if test="${ !empty form.resultat }"><p><c:out value="${ form.resultat }" /></p></c:if>
         
         <div id="corps">

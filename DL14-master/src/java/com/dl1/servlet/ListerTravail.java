@@ -41,7 +41,7 @@ public class ListerTravail extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        
+  //      if (request.getParameter("doIt") != null)
         String idAncienChantier = request.getParameter( CHAMP_LISTE_CHANTIERS );
         String dfrom = request.getParameter( CHAMP_FROM );
         Travail ligneTravail = new Travail();
@@ -49,6 +49,10 @@ public class ListerTravail extends HttpServlet {
         
         SimpleDateFormat sdf = new SimpleDateFormat ("dd-MM-yyyy");
         java.util.Date date;
+        System.out.println("DFROM : " + dfrom);
+        if (request.getParameter("doIt") != null) {
+            System.out.println("DFROM2 : " + dfrom);
+        if (dfrom != null) {
         try {
             date = sdf.parse(dfrom);
             java.sql.Date sqlDfrom = new java.sql.Date(date.getTime());
@@ -61,8 +65,8 @@ public class ListerTravail extends HttpServlet {
             Logger.getLogger(ListerTravail.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-   
-        
+        }
+        }
         
         
         

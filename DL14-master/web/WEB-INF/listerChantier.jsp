@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Liste des chantiers</title>
-        <img src="/DL14/images/logo.jpg">
+        <img src="/DL14-master/images/logo.jpg">
         <H1>Liste des chantiers</H1>
         <link type="text/css" rel="stylesheet" href="<c:url value="/inc/mycss2.css"/>" />  
     </head>
