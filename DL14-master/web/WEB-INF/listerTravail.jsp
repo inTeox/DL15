@@ -43,7 +43,7 @@
     </head>
     <body>
     <H1>Planning</H1>
-    
+      <form method="post" action="<c:url value="/ListerTravail"/>" >
         <label for="from">Semaine du :</label>
         <input type="text" id="from" name="from">
         <span class="erreur">${form.erreurs['from']}</span>
@@ -93,6 +93,7 @@
             </c:otherwise>
         </c:choose>
     </div>  
+      </form>       
         <c:import url="/inc/inc_bas_page.jsp" />
     </body>
 </html>

@@ -1,6 +1,59 @@
 http://localhost:33064/DL14-master/Page1
 ==================================================
 faaire la recherche pour lister travail dans le bean travail
+=============================================================== 2017/07/05
+Infos:   servlet ListerTravail
+Infos:   DFROM1 : 12-03-2017
+Infos:   doIt : Ok
+Infos:   DFROM2 : 12-03-2017
+Infos:   Chantier select : connexion faite
+Grave:   SQl error : 30000/Erreur de syntaxe : Encountered "=" at line 1, column 158.
+Infos:   ListerTravail : {}
+Infos:   VTT1 :null
+
+
+================================================================
+ <body>
+        <H1>Saisie hebdomadaire des temps</H1>
+        <c:if test="${ !empty form.resultat }"><p><c:out value="${ form.resultat }" /></p></c:if>
+        <form method="post" action="<c:url value="/CreationTravail"/>" >
+        
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td> <select name="listeChantiers" id="listeChantiers">
+                            <option value="">Choisissez un chantier...</option>
+                            <%-- Boucle sur la map des chantier --%>
+                            <c:forEach items="${ sessionScope.chantiers }" var="mapChantiers">
+                            <option value="${ mapChantiers.key }">${ mapChantiers.value.personne.nom } - ${ mapChantiers.value.nomChantier }</option>
+                            </c:forEach>
+                         </select>  
+                    </td>
+                    <td><label for="from">Semaine du :</label>
+                        <input type="text" id="from" name="from">
+                    <span class="erreur">${form.erreurs['from']}</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <table border="1">        
+            <tbody> 
+                <tr>
+                    <td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td colspan="2"><H3> LUNDI </H3></td>
+                    <td colspan="2"><H3> MARDI </H3></td>
+                    <td colspan="2"><H3> MERCREDI </H3></td>
+                    <td colspan="2"><H3> JEUDI </H3></td>
+                    <td colspan="2"><H3> VENDREDI </H3></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><H3> AM   -    PM </H3></td>
+                    <td colspan="2"><H3> AM   -    PM </H3></td>
+                    <td colspan="2"><H3> AM   -    PM </H3></td>
+                    <td colspan="2"><H3> AM   -    PM </H3></td>
+                    <td colspan="2"><H3> AM   -    PM </H3></td>
+                </tr>    
+   
+=========================================================================
 
  if (request.getParameter("doIt") != null) {
                 out.println("Nom : " + request.getParameter("Nom"));
